@@ -5,6 +5,9 @@ const router = Router();
 
 // las rutas van aquí
 router.get("/", (req, res) => {
+
+  // #swagger.description = "Filtro de bootcamp aplicado. Obtiene la lista completa de estudiantes si no se le pasa filtro de Bootcamp."
+
   const requestBootcamp = req.query.bootcamp;
 
   if (requestBootcamp) {
@@ -25,6 +28,9 @@ router.get("/", (req, res) => {
 }); // Filtro de Bootcamp y lista general
 
 router.get("/:id", (req, res) => {
+
+  // #swagger.description = "Encuentra a estudiante por medio del filtro de ID."
+
   const requestedId = Number(req.params.id);
   const findingEstudiante = estudiantes.find((e) => e.id === requestedId);
 
@@ -42,6 +48,9 @@ router.get("/:id", (req, res) => {
 }); // Encontrar est. por ID
 
 router.post("/", (req, res) => {
+
+  // #swagger.description = "Agrega un estudiante con toda su informacion al final de la lista."
+
   const { nombre, email, bootcamp } = req.body;
   if (!email || email.trim() === "") {
     return res.status(400).json({
@@ -69,6 +78,9 @@ router.post("/", (req, res) => {
 }); // Nuevo est.
 
 router.put("/:id", (req, res) => {
+
+  // #swagger.description = "Se modifica la informacion de un estudiante filtrado por su ID."
+
   const { nombre, email, bootcamp } = req.body;
   const findingId = Number(req.params.id);
   const foundEstudiante = estudiantes.findIndex((e) => e.id === findingId);
@@ -92,6 +104,9 @@ router.put("/:id", (req, res) => {
 }); // Modificar est. por ID
 
 router.delete("/:id", (req, res) => {
+
+  // #swagger.description = "Se elimina un estudiante por medio del filtro de su ID."
+
   const findingId = Number(req.params.id);
   const foundEstudiante = estudiantes.findIndex((e) => e.id === findingId);
 

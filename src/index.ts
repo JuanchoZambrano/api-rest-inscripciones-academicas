@@ -1,5 +1,7 @@
 import express from "express";
 import estudiantesRouter from './routes/estudiantes';
+import swaggerUi from 'swagger-ui-express';
+import swaggerOutput from './swagger_output.json';
 
 const app = express();
 const PORT = 3000;
@@ -15,6 +17,9 @@ app.get("/api/status", (req, res) => {
     version: "1.0.0",
   });
 });
+
+// SWAGGER
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerOutput));
 
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
