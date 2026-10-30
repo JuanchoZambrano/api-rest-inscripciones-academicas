@@ -21,7 +21,17 @@
         }
       }
     },
-    "/api/estudiantes/": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/students/": {
       "get": {
         "description": "Filtro de bootcamp aplicado. Obtiene la lista completa de estudiantes si no se le pasa filtro de Bootcamp.",
         "parameters": [
@@ -46,7 +56,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nombre": {
+                "name": {
                   "example": "any"
                 },
                 "email": {
@@ -69,7 +79,7 @@
         }
       }
     },
-    "/api/estudiantes/{id}": {
+    "/api/students/{id}": {
       "get": {
         "description": "Encuentra a estudiante por medio del filtro de ID.",
         "parameters": [
@@ -104,7 +114,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nombre": {
+                "name": {
                   "example": "any"
                 },
                 "email": {

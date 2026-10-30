@@ -11,20 +11,12 @@ router.get("/", (req, res) => {
   const requestBootcamp = req.query.bootcamp;
 
   if (requestBootcamp) {
-    const filterBootcamp = estudiantes.filter(
+    const filterCourse = estudiantes.filter(
       (e) => String(e.bootcamp).toLowerCase() === String(requestBootcamp).toLowerCase(),
     );
-    return res.status(200).json({
-      ok: true,
-      mensaje: `Filtro de Bootcamps`,
-      data: filterBootcamp,
-    });
+    return res.status(200).json(filterCourse);
   }
-  return res.status(200).json({
-    ok: true,
-    mensaje: `Lista de estudiantes`,
-    data: estudiantes,
-  });
+  return res.status(200).json(estudiantes);
 }); // Filtro de Bootcamp y lista general
 
 router.get("/:id", (req, res) => {
@@ -48,10 +40,13 @@ router.get("/:id", (req, res) => {
 }); // Encontrar est. por ID
 
 router.post("/", (req, res) => {
-
+  console.log("BODY RECIBIDO:", req.body);
   // #swagger.description = "Agrega un estudiante con toda su informacion al final de la lista."
 
-  const { nombre, email, bootcamp } = req.body;
+  const name =  req.body.name;
+  const email = req.body.email;
+  const bootcamp = req.body.bootcamp;
+
   if (!email || email.trim() === "") {
     return res.status(400).json({
       ok: false,
@@ -64,12 +59,13 @@ router.post("/", (req, res) => {
       estudiantes.length > 0
         ? Math.max(...estudiantes.map((e) => e.id)) + 1
         : 1,
-    nombre,
+    name,
     email,
     bootcamp,
   };
 
   estudiantes.push(newEstudiante);
+  console.log("ESTUDIANTES ACTUALES:", estudiantes);
   res.status(201).json({
     ok: true,
     mensaje: `Se ha creado el estudiante exitosamente.`,
@@ -81,7 +77,7 @@ router.put("/:id", (req, res) => {
 
   // #swagger.description = "Se modifica la informacion de un estudiante filtrado por su ID."
 
-  const { nombre, email, bootcamp } = req.body;
+  const { name, email, bootcamp } = req.body;
   const findingId = Number(req.params.id);
   const foundEstudiante = estudiantes.findIndex((e) => e.id === findingId);
 
@@ -92,7 +88,7 @@ router.put("/:id", (req, res) => {
     });
   }
 
-  if (nombre) estudiantes[foundEstudiante].nombre = nombre;
+  if (name) estudiantes[foundEstudiante].name = name;
   if (email) estudiantes[foundEstudiante].email = email;
   if (bootcamp) estudiantes[foundEstudiante].bootcamp = bootcamp;
 

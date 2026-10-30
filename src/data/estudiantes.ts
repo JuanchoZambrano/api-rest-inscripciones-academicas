@@ -1,6 +1,6 @@
 export interface Estudiante {
   id: number;
-  nombre: string;
+  name: string;
   email: string;
   bootcamp: string;
 }
